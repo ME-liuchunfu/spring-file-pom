@@ -1,0 +1,3 @@
+# Project exclude paths
+/disk-sdk/target/
+/file-common/target/
