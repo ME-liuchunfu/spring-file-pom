@@ -12,6 +12,7 @@ import xin.spring.file.disk.sdk.storage.DownLoadHandler;
 import xin.spring.file.disk.sdk.storage.StorageService;
 
 import java.io.*;
+import java.nio.file.*;
 import java.util.Date;
 import java.util.Objects;
 
@@ -96,7 +97,17 @@ public class LocalStorageService extends StorageService {
     @Override
     public String upload(byte[] data, String path) {
         Objects.requireNonNull(path);
-        return upload(new ByteArrayInputStream(data), path);
+        File fileDir = createFileDir();
+        File file = new File(fileDir, path);
+        Path nioPath = Paths.get(file.getAbsolutePath());
+        try {
+            Files.write(nioPath, data, StandardOpenOption.WRITE);
+        } catch (IOException e) {
+            logger.error("文件写入异常", e);
+            throw new StorageException("文件写入异常", e);
+        }
+        String url = getUploadUrl(file);
+        return url;
     }
 
     @Override
@@ -111,7 +122,8 @@ public class LocalStorageService extends StorageService {
         File fileDir = createFileDir();
         File file = new File(fileDir, path);
         try {
-            FileUtils.copyToFile(inputStream, file);
+            Path nioPath = Paths.get(file.getAbsolutePath());
+            Files.copy(inputStream, nioPath, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             logger.error("文件写入异常", e);
             throw new StorageException("文件写入异常", e);
