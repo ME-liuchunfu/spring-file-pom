@@ -47,6 +47,8 @@
         <qcloud.cos.version>4.4</qcloud.cos.version>
         <slf4j.api.version>2.0.0-alpha2</slf4j.api.version>
         <slf4j.simple.version>2.0.0-alpha2</slf4j.simple.version>
+        <netty.version>4.1.63.Final</netty.version>
+        <fastjson.version>1.2.30</fastjson.version>
     </properties>
 
     <dependencies>
@@ -115,6 +117,17 @@
             <version>${slf4j.simple.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>${netty.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

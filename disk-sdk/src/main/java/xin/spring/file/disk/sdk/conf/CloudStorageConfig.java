@@ -68,6 +68,8 @@ public class CloudStorageConfig implements Serializable {
     @NotBlank(message="所属地区不能为空", groups = QcloudGroup.class)
     private String qcloudRegion;
 
+    /**=========================== 本地存储 ================================**/
+
     /**
      * 本地存儲路劲
      */
@@ -90,5 +92,22 @@ public class CloudStorageConfig implements Serializable {
      * 配置本地存储需要配置nginx域名， 不配置默认返回文件相对路径
      */
     private String localDomain;
+
+    /**
+     * 开启本地 主从服务复制
+     */
+    private boolean localMaster;
+
+    /**
+     * 从服务地址
+     */
+    private String localSlaveIP;
+
+    /**
+     * 从服务端口
+     */
+    private int localSlavePort;
+
+    /**=========================== 本地存储 ================================**/
 
 }
